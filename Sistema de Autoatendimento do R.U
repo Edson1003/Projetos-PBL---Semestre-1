@@ -1,0 +1,412 @@
+# AUTOR: EDSON VINICIUS SILVA CARNEIRO
+
+# Declaração de autoria:
+# Declaro que este código foi desenvolvido por mim, sendo resultado do meu próprio entendimento e esforço.
+# Não houve prática de plágio, nem cópia integral de terceiros sem a devida referência.
+# Informo que ferramentas de inteligência artificial podem ter sido utilizadas apenas como apoio pontual, não sendo responsáveis pela geração completa deste código.
+
+
+tipo_de_usuario = None
+ 
+valor_alu = 1.50
+valor_ser = 3.50
+valor_vis = 12
+ 
+quantidade_alu = 0
+quantidade_ser = 0
+quantidade_vis = 0
+ 
+matricula = ""
+
+troco_maior = 0
+
+#Coloquei diferente de 0 pra não dar erro na hora de comparar
+estoque_total = -1
+estoque_alu = -1
+estoque_ser = -1
+estoque_vis = -1
+
+print("=======================================================\n\n\tBEM-VINDO AO SISTEMA DE AUTOATENDIMENTO\n\t DO RESTAURANTE UNIVERSITÁRIO DA UEFS\n\n=======================================================")
+senha_gestor = input(("\n\nPara iniciar, digite a senha de gestor: "))
+
+#Verifica se a senha do gestor está correta, ou seja igual a 9999
+while senha_gestor != "9999":
+    print('\033[31m\nSenha incorreta, tente novamente\n\033[0m')
+    senha_gestor = input(("Para iniciar, digite a senha de gestor: "))
+    
+else:
+    print('\033[32m\nSenha correta!\033[0m')
+    print("\n\n------------------------------------------------------")
+    print("\n\n\t\tESTOQUE:\n")
+    print("Deseja estabelecer o estoque por categoria ou total? ")
+
+    escolha_estoque = (input("Insira \"c\", para por categoria, ou \"t\", para por total: "))
+
+    while escolha_estoque not in ["c", "t"]:
+        print("\nEscolha um tipo válido.\n")
+        escolha_estoque = (input("Insira \"c\", para por categoria, ou \"t\", para por total: "))
+
+    if escolha_estoque == "c":
+
+        #entrada estoque aluno
+        estoque_alu = input("\nInsira o estoque de aluno: ")
+
+        while estoque_alu.isdigit() == False:
+            print("\nInsira um número\n")
+            estoque_alu = input("\nInsira o estoque total: ")
+
+        estoque_alu_int = int(estoque_alu)
+
+        #entrada estoque servidor/professor
+        estoque_ser = input("\nInsira o estoque de servidor/professor: ")
+
+        while estoque_ser.isdigit() == False:
+            print("\nInsira um número\n")
+            estoque_ser = input("\nInsira o estoque de servidor/professor: ")
+        
+        estoque_ser_int = int(estoque_ser)
+
+        #entrada estoque visitante
+        estoque_vis = input("\nInsira o estoque de visitante: ")
+
+        while estoque_vis.isdigit() == False:
+            print("\nInsira um número\n")
+            estoque_vis = input("\nInsira o estoque de visitante: ")
+
+        estoque_vis_int = int(estoque_vis)
+
+    else:
+        estoque_total = input("\nInsira o estoque total: ")
+
+        while estoque_total.isdigit() == False:
+            print("\nInsira um número\n")
+            estoque_total = input("\nInsira o estoque total: ")
+        
+        estoque_total_int = int(estoque_total)
+
+    print("\n------------------------------------------------------\n")
+
+while tipo_de_usuario != "9999":
+
+    #Caso de estoque total zerado
+    if escolha_estoque == "t":
+        if estoque_total_int == 0:
+            print('\033[31m\nESTOQUE ZERADO, VENDAS NÃO SÃO MAIS PERMITIDAS\n\033[0m')
+            tipo_de_usuario = "9999"
+            break
+
+    if escolha_estoque == "c" and estoque_alu_int == 0 and estoque_ser_int == 0 and estoque_vis_int == 0:
+            print('\033[31m\nESTOQUE ZERADO, VENDAS NÃO SÃO MAIS PERMITIDAS\n\033[0m')
+            tipo_de_usuario = "9999"
+            break
+        
+    
+    #Inicio de atendimento
+    else:
+        print("Bem-vindo!\n")
+        tipo_de_usuario = input("Qual seu tipo de usuário? Digite \"a\" para aluno, \"s\" para servidor/professor, \"v\" para visitante\n").lower()
+
+        #Validação de tipos de usuário
+        while tipo_de_usuario not in ['a', 's', 'v', '9999']:
+            print("Inválido, tente novamente\n")
+
+            tipo_de_usuario = input("Qual seu tipo de usuário? Digite \"a\" para aluno, \"s\" para servidor/professor, \"v\" para visitante\n").lower()
+
+        #Caso do estoque auno zerado
+        if escolha_estoque == "c":
+            if estoque_alu_int == 0:
+                if tipo_de_usuario == "a":
+                    
+                    while tipo_de_usuario == "a":
+                        print('\033[31m\nO ESTOQUE DE ALUNOS ESTÁ ZERADO.\n\033[0m')
+                        tipo_de_usuario = input("Qual seu tipo de usuário? Digite \"a\" para aluno, \"s\" para servidor/professor, \"v\" para visitante\n").lower()
+
+                        while tipo_de_usuario not in ['a', 's', 'v', '9999']:
+                            print("Inválido, tente novamente\n")
+
+                            tipo_de_usuario = input("Qual seu tipo de usuário? Digite \"a\" para aluno, \"s\" para servidor/professor, \"v\" para visitante\n").lower()
+            
+        #Caso do estoque servidor zerado
+        if escolha_estoque == "c":
+            if estoque_ser_int == 0:
+                if tipo_de_usuario == "s":
+                    
+                    while tipo_de_usuario == "s":
+                        print('\033[31m\nO ESTOQUE DE SERVIDORES/PROFESSORES ESTÁ ZERADO.\n\033[0m')
+                        tipo_de_usuario = input("Qual seu tipo de usuário? Digite \"a\" para aluno, \"s\" para servidor/professor, \"v\" para visitante\n").lower()
+
+                        while tipo_de_usuario not in ['a', 's', 'v', '9999']:
+                            print("Inválido, tente novamente\n")
+
+                            tipo_de_usuario = input("Qual seu tipo de usuário? Digite \"a\" para aluno, \"s\" para servidor/professor, \"v\" para visitante\n").lower()
+            
+        #Caso do estoque visitante zerado
+        if escolha_estoque == "c":
+            if estoque_vis_int == 0:
+                if tipo_de_usuario == "v":
+                    
+                    while tipo_de_usuario == "v":
+                        print('\033[31m\nO ESTOQUE DE VISITANTES ESTÁ ZERADO.\n\033[0m')
+                        tipo_de_usuario = input("Qual seu tipo de usuário? Digite \"a\" para aluno, \"s\" para servidor/professor, \"v\" para visitante\n").lower()
+
+                        while tipo_de_usuario not in ['a', 's', 'v', '9999']:
+                            print("Inválido, tente novamente\n")
+
+                            tipo_de_usuario = input("Qual seu tipo de usuário? Digite \"a\" para aluno, \"s\" para servidor/professor, \"v\" para visitante\n").lower()
+                        
+
+        #função que verifica se o "a" que é o valor_recebido é <,> ou = ao "b" que é o solicitado
+        def valor_verificar(a, b):
+            
+            global troco_maior
+            
+
+            if a < b:
+                
+                valor_adicionado = 0
+                
+                # 3 tentativas de alcançar o valor restante
+            
+                for i in range(3):
+                    if a < b:
+
+                        valor_adicionado = 0
+                        valor_adicionado = input(f"Valor insuficiente, insira o valor restante: R$ {b-a:.2f}\n").replace(",", ".")
+                        
+                        #verifica se é número
+                        valor_adicionado_sem_ponto = valor_adicionado.replace(".", "")
+
+                        while valor_adicionado_sem_ponto.isdigit() == False:
+                            print("\nInsira um valor válido.\n")
+
+                            valor_adicionado = input(f"Valor insuficiente, insira o valor restante: R$ {b-a:.2f}\n").replace(",", ".")
+
+                            valor_adicionado_sem_ponto = valor_adicionado.replace(".", "")
+                        
+                        valor_adicionado = float(valor_adicionado)
+                        
+                        a += valor_adicionado
+
+                if a < b:
+                    print(f"Valor insuficiente, operação cancelada. Valor devolvido: R$ {a:.2f}\n")
+                
+                elif a>b:
+                    troco = a-b
+                    print(f"Seu troco é {troco:.2f}")
+
+                    print(('\033[32m\nPagamento aprovado!\n\033[0m'))
+                    print("Próximo\n")
+                    print("\n------------------------------------------------------\n")
+
+                    if troco > troco_maior:
+                        troco_maior = troco
+
+                    return True
+                
+                else:
+                    print(('\033[32m\nPagamento aprovado!\n\033[0m'))
+                    print("Próximo\n")
+                    print("\n------------------------------------------------------\n")
+
+                    return True
+                    
+
+            elif a>b:
+                troco = a-b
+                print(f"Seu troco é {troco:.2f}")
+
+                print(('\033[32m\nPagamento aprovado!\n\033[0m'))
+                print("Próximo\n")
+                print("\n------------------------------------------------------\n")
+
+                if troco > troco_maior:
+                        troco_maior = troco
+
+                return True
+
+            else: 
+                print(('\033[32m\nPagamento aprovado!\n\033[0m'))
+                print("Próximo\n")
+                print("\n------------------------------------------------------\n")
+
+                return True
+            
+        #TIPO DE USÁRIO = ALNUNO
+        if tipo_de_usuario == "a":
+
+            matricula = input("Insira sua matricula: ")
+
+            #verificar se tem 9 dígitos
+            while len(matricula) != 9 or matricula.isdigit() == False:
+                print("Tente novamente, deve conter 9 dígitos númericos.")
+                matricula = input("Insira sua matricula: ")
+            
+
+                    
+            valor_devido = 1.50
+            valor_recebido_str = input("Insira: R$ 1,50\n")
+
+            #Recebe o valor inserido em string e transforma em float, substitui a vírgula por ponto pra ser calculado
+            valor_recebido_virgula_pra_ponto = valor_recebido_str.replace(",", ".")
+        
+            valor_recebido_sem_ponto = str((valor_recebido_virgula_pra_ponto).replace(".", ""))
+
+            #Verifica se é um número
+            while valor_recebido_sem_ponto.isdigit() == False:
+                print("\nTente novamente, deve ser um número.\n")
+
+                valor_recebido_str = input("Insira: R$ 1,50\n")
+                valor_recebido_virgula_pra_ponto = valor_recebido_str.replace(",", ".")
+                valor_recebido_sem_ponto = str(valor_recebido_virgula_pra_ponto).replace(".", "")
+
+            valor_recebido_f = float(valor_recebido_virgula_pra_ponto)
+
+
+            if valor_verificar(valor_recebido_f, valor_devido) == True:
+                quantidade_alu += 1
+                if escolha_estoque == "t":
+                    estoque_total_int -=1
+                elif escolha_estoque == "c":
+                    estoque_alu_int -= 1
+                matricula = ""
+                
+        #TIPO DE USUÁRIO = SERVIDOR
+        elif tipo_de_usuario == "s":
+            valor_devido = 3.5
+            	
+            valor_recebido_str = input("Insira: R$ 3,50\n")
+
+            #Recebe o valor inserido em string e transforma em float, substitui a vírgula por ponto pra ser calculado
+            valor_recebido_virgula_pra_ponto = valor_recebido_str.replace(",", ".")
+        
+            valor_recebido_sem_ponto = str((valor_recebido_virgula_pra_ponto).replace(".", ""))
+
+            #Verifica se é um número
+            while valor_recebido_sem_ponto.isdigit() == False:
+                print("\nTente novamente, deve ser um número.\n")
+
+                valor_recebido_str = input("Insira: R$ 3,50\n")
+                valor_recebido_virgula_pra_ponto = valor_recebido_str.replace(",", ".")
+                valor_recebido_sem_ponto = str(valor_recebido_virgula_pra_ponto).replace(".", "")
+
+            valor_recebido_f = float(valor_recebido_virgula_pra_ponto)
+
+
+            if valor_verificar(valor_recebido_f, valor_devido) == True:
+                quantidade_ser += 1
+                if escolha_estoque == "t":
+                    estoque_total_int -=1
+
+                elif escolha_estoque == "c":
+                    estoque_ser_int -= 1
+
+        #TIPO DE USUÁRIO = VISITANTE
+        elif tipo_de_usuario == "v":
+            valor_devido = 12
+            valor_recebido_str = input("Insira: R$ 12,00\n")
+
+            #Recebe o valor inserido em string e transforma em float, substitui a vírgula por ponto pra ser calculado
+            valor_recebido_virgula_pra_ponto = valor_recebido_str.replace(",", ".")
+        
+            valor_recebido_sem_ponto = str((valor_recebido_virgula_pra_ponto).replace(".", ""))
+
+            #Verifica se é um número
+            while valor_recebido_sem_ponto.isdigit() == False:
+                print("\nTente novamente, deve ser um número.\n")
+
+                valor_recebido_str = input("Insira: R$ 12,00\n")
+                valor_recebido_virgula_pra_ponto = valor_recebido_str.replace(",", ".")
+                valor_recebido_sem_ponto = str(valor_recebido_virgula_pra_ponto).replace(".", "")
+
+            valor_recebido_f = float(valor_recebido_virgula_pra_ponto)
+
+            if valor_verificar(valor_recebido_f, valor_devido) == True:
+                quantidade_vis += 1
+
+                if escolha_estoque == "t":
+                    estoque_total_int -=1
+                elif escolha_estoque == "c":
+                    estoque_vis_int -= 1
+                
+        
+#Valores totais por categoria
+valor_total_alu = quantidade_alu*valor_alu
+valor_total_ser = quantidade_ser*valor_ser
+valor_total_vis = quantidade_vis*valor_vis
+
+#Valor e quantidade totais
+valor_total = (valor_total_alu) + (valor_total_ser) + (valor_total_vis)
+
+quantidade_total = quantidade_alu + quantidade_ser + quantidade_vis
+
+#Caso de não ter vendas
+if valor_total == 0:
+	valor_medio = 0
+	porcentagem_alu = 0
+	porcentagem_ser= 0
+	porcentagem_vis = 0
+
+else:
+	valor_medio = valor_total / quantidade_total
+
+	porcentagem_alu = 100*quantidade_alu/quantidade_total
+	porcentagem_ser = 100*quantidade_ser/quantidade_total
+	porcentagem_vis = 100*quantidade_vis/quantidade_total
+
+tipo_maior_vendas = ""
+
+lista_totais = [valor_total_alu, valor_total_ser, valor_total_vis]
+
+#Se não tiver vendas
+if valor_total == 0:
+    tipo_maior_vendas = "nenhum"
+
+#todos iguais
+elif (valor_total_ser == max(lista_totais) and valor_total_alu == max(lista_totais)) and valor_total_vis == max(lista_totais):
+    tipo_maior_vendas = "todos são iguais"
+
+#Casos de empate no total
+elif valor_total_alu == max(lista_totais) and valor_total_ser == max(lista_totais):
+    tipo_maior_vendas = "Alunos e Servidores/ Professores"
+
+elif valor_total_alu == max(lista_totais) and valor_total_vis == max(lista_totais):
+    tipo_maior_vendas = "Alunos e Visitantes"
+
+elif valor_total_vis == max(lista_totais) and valor_total_ser == max(lista_totais):
+    tipo_maior_vendas = "Visitantes e Servidores"
+
+
+
+#Comparação de valores totais
+else:
+    if valor_total_alu == max(lista_totais):
+        tipo_maior_vendas = "Aluno"
+    
+    elif valor_total_ser == max(lista_totais):
+        tipo_maior_vendas = "Servidores/ Professores"
+    
+    else:
+        tipo_maior_vendas = "Visitantes"
+
+
+#Relatório final
+if tipo_de_usuario == "9999":
+        codigo = input("Código de encerramento: ")
+        while codigo!= "9999":
+            print("Código inválido, tente novamente.")
+            codigo = input("Código de encerramento: ")
+
+        
+        print("----------------------------------\n\n\tRELATÓRIO DO DIA:\n\n")
+        print(f"Valor total = R$ {str(valor_total)}")
+        print(f"Quantidade de refeições de alunos: {quantidade_alu}")
+        print(f"Quantidade de refeições de servidores/professsores: {quantidade_ser}")
+        print(f"Quantidade de refeições de visitantes: {quantidade_vis}\n")
+        print(f"Valor médio por pessoa: R$ {valor_medio:.2f}")
+        print(f"Porcentagem de alunos: {porcentagem_alu:.2f} %")
+        print(f"Porcentagem de servidores/professores: {porcentagem_ser:.2f} %")
+        print(f"Porcentagem de visitantes: {porcentagem_vis:.2f} %")
+        print(f"O tipo de usuário com maior valor de vendas foi {tipo_maior_vendas} com R$ {max(lista_totais):.2f}")
+        print(f"O maior troco devolvido foi R$ {troco_maior:.2f}\n")
+        print("----------------------------------")
+        print("\nDIA ENCERRADO\n")
